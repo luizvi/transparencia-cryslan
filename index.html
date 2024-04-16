@@ -1,37 +1,53 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Portal de Transparência Cryslan - 2021-2024</title>
-  <script>
-    function resizeIframe(obj) {
-      obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
-    }
-
-    function checkScreenWidth() {
-      if (window.innerWidth < 400) {
-        window.location.href = "<iframe width="390" height="2000" src="https://lookerstudio.google.com/embed/reporting/ac9fe9ba-27b8-49d7-b147-b9de948fd755/page/zNSjD" frameborder="0" style="border:0" allowfullscreen></iframe> ";
-      }
-    }
-
-    window.onload = checkScreenWidth;
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Transparência Cryslan - 2021-2024</title>
+    <style>
+        body {
+            background-color: #202124;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-  <style>
-    body {
-      background-color: #202124;
+
+<!-- Container para incorporar relatórios -->
+<div id="relatorio-container"></div>
+
+<script>
+    // Função para verificar se o dispositivo é um mobile
+    function isMobileDevice() {
+        return /Mobi|Android/i.test(navigator.userAgent);
     }
 
-    div.relatorio {
-      align: center;
-      margin: 0px;
-      height: 100%;
+    // Função para verificar o tamanho da tela e decidir qual relatório exibir
+    function exibirRelatorio() {
+        // Verificar se o dispositivo é um mobile
+        var isMobile = isMobileDevice();
+
+        // URL do relatório otimizado para PC
+        var relatorioPC = '<iframe width="100%" height="1205" src="https://lookerstudio.google.com/embed/reporting/11f93e5d-4561-4ed6-9a36-7efa136f5af0/page/zNSjD" frameborder="0" scrolling="no" onload="resizeIframe(this)" style="border:0" allowfullscreen></iframe>';
+
+        // URL do relatório otimizado para celular
+        var relatorioMobile = '<iframe width="100%" height="2000" src="https://lookerstudio.google.com/embed/reporting/ac9fe9ba-27b8-49d7-b147-b9de948fd755/page/zNSjD" frameborder="0" style="border:0" allowfullscreen></iframe>';
+
+        // Escolher qual relatório exibir com base no tipo de dispositivo
+        var relatorioURL = isMobile ? relatorioMobile : relatorioPC;
+
+        // Criar o elemento iframe para incorporar o relatório
+        var iframe = document.createElement("div");
+        iframe.innerHTML = relatorioURL;
+
+        // Adicionar o iframe ao container
+        document.getElementById("relatorio-container").appendChild(iframe);
     }
-  </style>
-  <div class="relatorio">
-     <iframe width="100%" height="1205px" src="https://lookerstudio.google.com/embed/reporting/11f93e5d-4561-4ed6-9a36-7efa136f5af0/page/zNSjD" frameborder="0" scrolling="no" onload="resizeIframe(this)" style="border:0" allowfullscreen></iframe>
-  </div>
+
+    // Chamar a função ao carregar a página
+    window.onload = exibirRelatorio;
+</script>
+
 </body>
 </html>
 
